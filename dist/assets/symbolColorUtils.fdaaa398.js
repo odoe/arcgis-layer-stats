@@ -1,0 +1,1 @@
+import"./index.a113d2e4.js";var o;(function(l){l[l.Global=1]="Global",l[l.Local=2]="Local"})(o||(o={}));var a;(function(l){l[l.Multiply=1]="Multiply",l[l.Ignore=2]="Ignore",l[l.Replace=3]="Replace",l[l.Tint=4]="Tint"})(a||(a={}));export{o as l,a as r};
