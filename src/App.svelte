@@ -16,22 +16,18 @@
 
   let layer;
   let fieldName;
-
-  let id; // = "b8f4033069f141729ffb298b7418b653";
+  let id;
 
   const statTypes = ["count", "sum", "min", "max", "avg", "stddev", "var"];
 
   onMount(() => {
     // stats checkboxes
-    console.log(location.search);
     const params = new URLSearchParams(location.search);
-    console.log(params.get("id"));
     if (params.get("id")) {
       id = params.get("id");
     }
     const checks = document.createElement("div");
     for (let type of statTypes) {
-      console.log(type);
       const check = `<calcite-label alignment="end" layout="inline" for=${type}><calcite-checkbox checked value=${type} name=${type}></calcite-checkbox><span class="stats-type">${type}</span></calcite-label>`;
       checks.innerHTML = check;
       statsContainer.appendChild(checks.firstChild);
@@ -49,11 +45,6 @@
         const option = `<calcite-option value=${field.name}>${field.alias}</calcite-option>`;
         elem.innerHTML = option;
         selectContainer.appendChild(elem.firstChild);
-      }
-
-      const elems = [...document.querySelectorAll("calcite-checkbox")];
-      for (let el of elems) {
-        el.addEventListener("calciteCheckboxChange", onStatsChange);
       }
     });
   });
@@ -75,7 +66,6 @@
     }));
     query.outStatistics = stats;
     layer.queryFeatures(query).then(({ features }) => {
-      console.log(features);
       const { attributes } = features[0];
       resultTableContainer.innerHTML = "";
       for (let key in attributes) {
@@ -88,13 +78,10 @@
       }
     });
   }
-
-  function onStatsChange(e) {
-    console.log("stats change", e.target.checked, e.target.value);
-  }
 </script>
 
 <main>
+  <header class="header">ArcGIS Layer Statistics</header>
   <div class="app">
     <div class="picker">
       <calcite-select
@@ -120,6 +107,12 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
+  }
+
+  .header {
+    background: var(--calcite-ui-brand);
+    color: var(--calcite-ui-foreground-2);
+    padding: 1rem;
   }
 
   .app {
